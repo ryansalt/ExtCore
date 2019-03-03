@@ -14,24 +14,26 @@ namespace HostedServiceA.Services
 	{
 		private readonly ILogger _logger;
 		private Timer _timer;
+		private readonly IServiceProvider _serviceProvider;
 
-		public TimedHostedServiceA(ILogger<TimedHostedServiceA> logger)
+		public TimedHostedServiceA(ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
 		{
-			_logger = logger;
+			_logger = loggerFactory.CreateLogger<TimedHostedServiceA>();
+			_serviceProvider = serviceProvider;
 		}
 
 		public Task StartAsync(CancellationToken cancellationToken)
 		{
 			_logger.LogInformation("Time background service 1 is starting");
 
-			_timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(10));
+			_timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
 
 			return Task.CompletedTask;
 		}
 
 		private void DoWork(object state)
 		{
-			Event<ISomeActionEventHandler, string>.Broadcast($"{DateTime.Now} SomeActionEvent raised by TimedHostedServiceA");
+			Event<ISomeActionEventHandler, string, IServiceProvider>.Broadcast($"{DateTime.Now} SomeActionEvent raised by TimedHostedServiceA", _serviceProvider);
 		}
 
 		public Task StopAsync(CancellationToken cancellationToken)

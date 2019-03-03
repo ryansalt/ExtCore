@@ -1,4 +1,6 @@
 ﻿using System;
+using ExtensionA.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using TestConsoleApp.Events;
 
 namespace ExtensionA
@@ -7,10 +9,10 @@ namespace ExtensionA
 	{
 		public int Priority => 1000;
 
-		public void HandleEvent(string argument)
+		public void HandleEvent(string argument, IServiceProvider provider)
 		{
-			// Using Console because I can't inject services to get logging
-			Console.WriteLine(argument);
+			var service = provider.GetService<ITestService>();
+			service.Print($"{argument} :: reported by {nameof(ExtensionA)}.{nameof(SomeEventHandler)}");
 		}
 	}
 }

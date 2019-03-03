@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ExtensionA.Interfaces
+﻿namespace ExtensionA.Interfaces
 {
 	public interface ITestService
 	{
-		string Hello();
+		void Print(string argument);
 	}
 }

@@ -1,8 +1,9 @@
-﻿using ExtCore.Events;
+﻿using System;
+using ExtCore.Events;
 
 namespace TestConsoleApp.Events
 {
-	public interface ISomeActionEventHandler : IEventHandler<string>
+	public interface ISomeActionEventHandler : IEventHandler<string, IServiceProvider>
 	{
 	}
 }

@@ -1,12 +1,20 @@
 ﻿using ExtensionA.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace ExtensionA.Services
 {
 	public class TestService : ITestService
 	{
-		public string Hello()
+		private readonly ILogger _logger;
+
+		public TestService(ILoggerFactory loggerFactory)
 		{
-			return "Hello";
+			_logger = loggerFactory.CreateLogger<TestService>();
+		}
+
+		public void Print(string message)
+		{
+			_logger.LogInformation(message);
 		}
 	}
 }
