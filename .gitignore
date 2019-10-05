@@ -4,3 +4,4 @@ obj/
 pack.bat
 push.bat
 *.user
+src/.DS_Store
