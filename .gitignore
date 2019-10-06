@@ -5,3 +5,5 @@ pack.bat
 push.bat
 *.user
 src/.DS_Store
+src/ExtCore.ConsoleApplication/.DS_Store
+.DS_Store
